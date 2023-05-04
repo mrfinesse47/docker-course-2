@@ -1,21 +1,20 @@
+# this docker file is done smarter so it copies nodee files first then applies code 
+# changes after in order to speed up image creation
+
 FROM node
 
 WORKDIR /app
 
-COPY . /app
+COPY package.json /app
 
-# means to copy the files from this directory into the root of the image.
-# host file system - image/container file system.
-# it is a good idea not to use root on the container, here we send it to /app folder
+# copy the minimum for the heavy install that way the intensive steps are cached.
+# now if we make changes to the source code the build wont take forever.
 
 RUN npm install
-# will execute in the /app working dir.
 
-EXPOSE 80
+COPY . /app
 
-# RUN node server.js  - would be incorrect because this will execute when the image is being built.
-
-# instead use CMD, this runs when the container starts from the image.
+EXPOSE 899
 
 CMD ["node", "server.js"]
 
