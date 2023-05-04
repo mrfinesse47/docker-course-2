@@ -1,0 +1,21 @@
+FROM node
+
+WORKDIR /app
+
+COPY . /app
+
+# means to copy the files from this directory into the root of the image.
+# host file system - image/container file system.
+# it is a good idea not to use root on the container, here we send it to /app folder
+
+RUN npm install
+# will execute in the /app working dir.
+
+EXPOSE 80
+
+# RUN node server.js  - would be incorrect because this will execute when the image is being built.
+
+# instead use CMD, this runs when the container starts from the image.
+
+CMD ["node", "server.js"]
+
