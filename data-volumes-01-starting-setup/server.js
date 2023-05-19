@@ -13,6 +13,7 @@ app.use(express.static('public'));
 app.use('/feedback', express.static('feedback'));
 
 app.get('/', (req, res) => {
+  console.log('here');
   const filePath = path.join(__dirname, 'pages', 'feedback.html');
   res.sendFile(filePath);
 });
@@ -23,6 +24,7 @@ app.get('/exists', (req, res) => {
 });
 
 app.post('/create', async (req, res) => {
+  console.log('herfrce');
   const title = req.body.title;
   const content = req.body.text;
 
