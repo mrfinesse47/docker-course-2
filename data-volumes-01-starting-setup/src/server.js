@@ -10,10 +10,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
-app.use('/feedback', express.static('feedback'));
+app.use('../feedback', express.static('feedback'));
 
 app.get('/', (req, res) => {
-  console.log('here');
+  console.log('herevg');
   const filePath = path.join(__dirname, 'pages', 'feedback.html');
   res.sendFile(filePath);
 });
@@ -24,14 +24,19 @@ app.get('/exists', (req, res) => {
 });
 
 app.post('/create', async (req, res) => {
-  console.log('herfrce');
+  console.log('heraarce');
   const title = req.body.title;
   const content = req.body.text;
 
   const adjTitle = title.toLowerCase();
 
-  const tempFilePath = path.join(__dirname, 'temp', adjTitle + '.txt');
-  const finalFilePath = path.join(__dirname, 'feedback', adjTitle + '.txt');
+  const tempFilePath = path.join(__dirname, '..', 'temp', adjTitle + '.txt');
+  const finalFilePath = path.join(
+    __dirname,
+    '..',
+    'feedback',
+    adjTitle + '.txt'
+  );
 
   await fs.writeFile(tempFilePath, content);
   exists(finalFilePath, async (exists) => {
