@@ -57,3 +57,17 @@ commands
 ```
     docker run --name goals-backend --network mongo-net --rm -d -p 80:80  goals-node
 ```
+
+#### now we are going to dockerize the front end application
+
+- after writing the docker file in the frontend dir
+
+```
+    docker build -t goals-react .
+```
+
+- now run the container
+
+```
+    docker run --name goals-frontend --rm -p 3000:3000 -d goals-react
+```
