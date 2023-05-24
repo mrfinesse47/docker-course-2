@@ -67,14 +67,27 @@ app.get('/people', async (req, res) => {
   }
 });
 
+// app.listen(3000);
+
 mongoose.connect(
-  'mongodb://localhost:27017/swfavorites',
+  'mongodb://mongodb:27017/swfavorites',
+  // special host.docker.internal address resolves to host ip to
+  // communicate from container to host.
+  // the 172.17.0.2 is from the docker hun mongoimage,
+  // to run that container go docker run mongodb name it mongodb
+  // if you go docker container inspect mongodb you will find that ip address.
+  // but if you make a network in docker and run this container and the db container on the same network
+  // all you have to do is use the container name of what you want to talk to.
+  // In Summary:
+  // to get 2 containers to talk to one another you need to 1. manually look up the IP address
+  // or 2. have them on the same docker-network
   { useNewUrlParser: true },
   (err) => {
     if (err) {
       console.log(err);
     } else {
       app.listen(3000);
+      console.log('listening on port 3000');
     }
   }
 );
