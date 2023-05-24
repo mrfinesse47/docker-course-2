@@ -15,3 +15,45 @@ commands
 ```
 
 - we can find that the mongo db image runs on port 27017 internally from looking at documentation
+
+### build the backend image
+
+```
+    docker build -t goals-node .
+```
+
+- we gave it the tag of "goals-node"
+
+##### now run a container based on that newly created image
+
+```
+    docker run --name goals-backend --rm -d goals-node
+```
+
+- this fails to run because the original mongo db on the backend was running on localhost.
+
+- also it fails if I use host.docker.internal since mongodb is no longer running on the host and it is in the container
+
+- so I decided to make a docker network
+
+```
+    docker network create mongo-net
+```
+
+- now I have to change the host.docker.internal address to the name of the mongo container. \*remember to rebuild the image since code has changed. and have to run the original mongo container with --network mongo-net flag.
+
+```
+    docker run --name mongodb --network mongo-net --rm -d mongo
+```
+
+- and run the backend with the network flag as well
+
+```
+    docker run --name goals-backend --network mongo-net --rm -d goals-node
+```
+
+- but now the front end needs the backend to publish ports since it is no longer running on the localhost.
+
+```
+    docker run --name goals-backend --network mongo-net --rm -d -p 80:80  goals-node
+```
