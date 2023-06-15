@@ -1,3 +1,21 @@
 # reference https://docs.docker.com/compose/compose-file/compose-file-v3/
 
+# also see the txt file for reasoning
+
 version: 'version'
+# services is containers
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME: kevin
+    #   - MONGO_INITDB_ROOT_PASSWORD: secret
+    # or we can use an env file
+    env_file:
+      - ./env/mongo.env
+
+# you must add your named volumes
+volumes:
+  data:

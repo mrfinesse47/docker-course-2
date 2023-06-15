@@ -1,0 +1,3 @@
+to start in detached mode:
+
+docker-compose up -d

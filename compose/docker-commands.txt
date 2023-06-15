@@ -33,9 +33,9 @@ docker run --name goals-backend \
   -v logs:/app/logs \
   -v /Users/maximilianschwarzmuller/development/teaching/udemy/docker-complete/backend:/app \
   -v /app/node_modules \
-  --rm \
-  -d \
-  --network goals-net \
+  --rm \ -- not needed docker compose down does this.
+  -d \ -- implied
+  --network goals-net \ -- networks are created automatically by docker-compose
   -p 80:80 \
   goals-node
 
